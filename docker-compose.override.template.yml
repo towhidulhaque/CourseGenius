@@ -1,0 +1,47 @@
+---
+
+# Default compose file for development and production.
+# Should be used directly in development.
+# Automatically loads `docker-compose.override.yml` if it exists.
+# No extra steps required.
+# Should be used together with `docker/docker-compose.prod.yml`
+# in production.
+
+version: "3.6"
+services:
+  web:
+    volumes:
+      - .:/code
+    ports:
+      - "8022:8000"
+
+  db:
+    ports:
+      - "5422:5432"
+
+  redis:
+    ports:
+      - "6322:6379"
+
+  redis-commander:
+    ports:
+      - "8122:8081"
+
+  # RabbitMQ
+  rabbit:
+    ports:
+      - "5622:5672"  # we forward this port because it's useful for debugging
+      - "15622:15672"  # here, we can access rabbitmq management plugin
+
+  asgiserver:
+    ports:
+      - "8822:9000"
+
+  flower:
+    ports:
+      - "8822:8888"
+
+  pgadmin:
+    container_name: coursegenius-pgadmin
+    ports:
+      - "5022:80"

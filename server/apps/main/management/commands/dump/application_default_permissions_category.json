@@ -1,0 +1,38 @@
+[
+  {
+    "type": "User",
+    "name": "User",
+    "permissions": [
+      "add_user",
+      "change_user",
+      "delete_user",
+      "view_user"
+    ]
+  },
+  {
+    "type": "User",
+    "name": "Roles",
+    "permissions": [
+      "change_user_group",
+      "manage_all_employee"
+    ]
+  },
+  {
+    "type": "Permission",
+    "name": "Permission Group",
+    "permissions": [
+      "add_permissiongroup",
+      "change_permissiongroup",
+      "delete_permissiongroup",
+      "view_permissiongroup"
+    ]
+  },
+  {
+    "type": "Permission",
+    "name": "Permission Category",
+    "permissions": [
+      "view_permissioncategory"
+    ]
+  }
+]
+

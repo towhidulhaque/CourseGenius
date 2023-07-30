@@ -1,0 +1,25 @@
+[
+  {
+    "group_name": "admin",
+    "permissions": [
+      "add_user",
+      "change_user",
+      "delete_user",
+      "view_user",
+      "add_permissiongroup",
+      "change_permissiongroup",
+      "delete_permissiongroup",
+      "view_permissiongroup",
+      "change_user_group",
+      "view_permissioncategory"
+    ]
+  },
+  {
+    "group_name": "user",
+    "permissions": [
+      "view_permission",
+      "view_permissiongroup",
+      "view_user"
+    ]
+  }
+]
