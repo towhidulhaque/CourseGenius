@@ -6,6 +6,8 @@ from typing import final
 from django.contrib.auth.models import AbstractUser, Group
 from django.db import models
 
+from server.apps.main.models.institute import Institute
+
 max_length_large = 255
 max_length_medium = 50
 max_length_small = 20
@@ -39,6 +41,16 @@ class User(AbstractUser):
     )
     show_tips = models.BooleanField(default=True)
     is_email_confirmed = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
+    is_faculty = models.BooleanField(default=False)
+    is_institutional_admin = models.BooleanField(default=False)
+    institute = models.ForeignKey(
+        Institute,
+        related_name='user_institute_map',
+        null=True,
+        on_delete=models.SET_NULL,
+        db_index=True,
+    )
 
     class Meta(object):
         """Meta class."""
