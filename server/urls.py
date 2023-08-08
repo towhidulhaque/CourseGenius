@@ -20,8 +20,8 @@ from django.views.generic import TemplateView
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from health_check import urls as health_urls
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import AllowAny
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from server.apps.main import urls as main_urls
 
@@ -36,7 +36,7 @@ schema_view = get_schema_view(
     ),
     public=True,
     permission_classes=(AllowAny,),
-    authentication_classes=(SessionAuthentication, BasicAuthentication)
+    authentication_classes=(JWTAuthentication,),
 )
 
 
