@@ -2,6 +2,7 @@ from typing import Dict, List
 
 from django import template
 from django.db import models
+from django.template import Context as DjangoContext
 from django.template import Template as DjangoTemplate
 
 from server.apps.utility.base_mixin import BaseMixin
@@ -20,9 +21,19 @@ class EmailTemplate(BaseMixin, BlameableMixin):
     is_html = models.BooleanField(default=False)
     template_key = models.CharField(max_length=max_length_medium, unique=True)
 
+    class Meta(object):
+        verbose_name = 'Email Template'
+        verbose_name_plural = 'Email Templates'
+
+    def __str__(self):
+        """String representing self."""
+        return self.template_key
+
     def get_rendered_template(self, tpl: str, context: Dict[str, str]) -> str:
         """Will return parsed content."""
-        return self.get_template(tpl).render(context)
+        tpl_obj = self.get_template(tpl)
+        django_context = DjangoContext(context)
+        return tpl_obj.render(django_context)
 
     def get_template(self, tpl: str) -> DjangoTemplate:
         """Will return template."""
