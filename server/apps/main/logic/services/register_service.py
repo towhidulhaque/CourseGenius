@@ -1,4 +1,10 @@
+from django.conf import settings
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+
 from server.apps.main.models import User
+from server.apps.main.utils.email_sender import send_email_with_template
 
 
 class RegisterService(object):
@@ -18,6 +24,30 @@ class RegisterService(object):
         user.is_verified = is_verified
         user.save()
         if not active:
-            # todo: send OTP
-            pass  # noqa: WPS420
+            cls.send_verification_email(user)
+        return user
+
+    @classmethod
+    def send_verification_email(cls, user):
+        """Send email to new registered user."""
+        token = default_token_generator.make_token(user)
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+
+        verification_url = '{base_url}/uidb64/{uidb64}/token/{token}'.format(
+            base_url=settings.FRONTEND_BASE_URL,
+            uidb64=uid,
+            token=token,
+        )
+
+        context = {
+            'verification_link': verification_url,
+        }
+        send_email_with_template.delay('register_email', [user.email], context)
+
+    @classmethod
+    def verify_email(cls, user: User) -> User:
+        """Verify User's email."""
+        user.is_email_confirmed = True
+        user.activation_code = ''
+        user.save()
         return user
