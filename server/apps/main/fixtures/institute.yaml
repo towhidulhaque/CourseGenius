@@ -1,0 +1,12 @@
+# yamllint disable
+
+- model: main.Institute
+  pk: 1
+  fields:
+    name: 'North South University (NSU)'
+    description: 'NSU Dhaka'
+- model: main.Institute
+  pk: 2
+  fields:
+    name: 'Indiana University (IU)'
+    description: 'IU B-town'
