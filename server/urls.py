@@ -24,6 +24,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from server.apps.main import urls as main_urls
+from server.apps.course_management import urls as course_management_urls
 
 admin.autodiscover()
 
@@ -51,6 +52,7 @@ class HealthCheck(View):
 urlpatterns = [
     # Apps:
     path('api/v1/main/', include(main_urls, namespace='main')),
+    path('api/v1/course-management/', include(course_management_urls, namespace='course_management')),
     # Health checks:
     path('', HealthCheck.as_view()),
     path('health/', include(health_urls)),  # noqa: DJ05
