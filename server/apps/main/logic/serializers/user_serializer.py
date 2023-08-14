@@ -31,3 +31,16 @@ class RegisterSerializer(serializers.ModelSerializer):
             )
         validate_email(attrs['username'])
         return attrs
+
+
+class MiniUserSerializer(serializers.ModelSerializer):
+    """Serializer for user short info."""
+
+    class Meta(object):
+        model = User
+        fields = (
+            'id',
+            'username',
+            'first_name',
+            'last_name',
+        )
