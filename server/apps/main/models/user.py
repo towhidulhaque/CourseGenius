@@ -43,6 +43,7 @@ class User(AbstractUser):
     is_email_confirmed = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
     is_faculty = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)
     is_institutional_admin = models.BooleanField(default=False)
     institute = models.ForeignKey(
         Institute,
