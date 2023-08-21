@@ -8,6 +8,9 @@ from server.apps.course_management.models.course import Course
 from server.apps.course_management.models.course_component import (
     CourseComponent,
 )
+from server.apps.course_management.utils.permissions import (
+    CourseComponentPermission,
+)
 
 
 class CourseComponentListCreateView(ListCreateAPIView):
@@ -27,11 +30,7 @@ class CourseComponentListCreateView(ListCreateAPIView):
         user = self.request.user
         course_id = self.kwargs.get('course_id')
         course = get_object_or_404(Course, id=course_id)
-        if user.is_admin or user.is_staff:
-            return CourseComponent.objects.filter(course=course)
-        if user.is_institutional_admin and course.institute == user.institute:
-            return CourseComponent.objects.filter(course=course)
-        if user.is_faculty and course.teacher == user:
+        if CourseComponentPermission.user_has_permission(user, course):
             return CourseComponent.objects.filter(course=course)
         return CourseComponent.objects.none()
 
@@ -47,7 +46,7 @@ class CourseComponentListCreateView(ListCreateAPIView):
 
         course = get_object_or_404(Course, id=course_id)
 
-        if user.is_staff or user.is_admin or (user.is_institutional_admin and course.institute == user.institute) or (user.is_faculty and course.teacher == user):  # noqa: WPS222, E501, WPS221
+        if CourseComponentPermission.user_has_permission(user, course):
             serializer.validated_data['course'] = course
             serializer.validated_data['institute'] = course.institute
             serializer.validated_data['created_by'] = user
