@@ -60,7 +60,7 @@ class CourseListCreateView(ListCreateAPIView):
         user = self.request.user
 
         # Admin users can create courses for any institute
-        if user.is_staff and user.is_admin:
+        if user.is_staff or user.is_admin:
             serializer.save(created_by=user)
 
         # Institutional admins and faculty members can create courses for their institute
