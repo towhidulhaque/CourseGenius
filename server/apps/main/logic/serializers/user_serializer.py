@@ -44,3 +44,21 @@ class MiniUserSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
         )
+
+
+class UserSerializer(serializers.ModelSerializer):
+    """Serializer for user info."""
+
+    class Meta(object):
+        model = User
+        fields = (
+            'id',
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'is_admin',
+            'is_institutional_admin',
+            'institute',
+            'created_at',
+        )

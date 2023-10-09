@@ -8,6 +8,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from server.apps.main.views.institute_api_view import InstituteListCreateView
 from server.apps.main.views.login_api_view import UserLoginAPI
 from server.apps.main.views.register_api_view import RegisterAPIView, UserEmailVerificationAPI
+from server.apps.main.views.user_api_view import UserListView
 
 app_name = 'main'
 
@@ -19,4 +20,6 @@ urlpatterns: List[str] = [
     path('login/', UserLoginAPI.as_view(), name='user_login'),
     # institution
     path('institutes/', InstituteListCreateView.as_view(), name='user_login'),
+    # user list manage
+    path('users/', UserListView.as_view(), name='user_list'),
 ]
