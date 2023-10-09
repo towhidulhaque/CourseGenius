@@ -62,3 +62,43 @@ class UserSerializer(serializers.ModelSerializer):
             'institute',
             'created_at',
         )
+
+
+class AdminUserModifySerializer(serializers.ModelSerializer):
+    """Serializer for user modify by admin."""
+
+    class Meta(object):
+        model = User
+        fields = (
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'is_admin',
+            'is_institutional_admin',
+            'institute',
+        )
+
+
+class InstitutionalAdminUserModifySerializer(serializers.ModelSerializer):
+    """Serializer for user modify by institutional admin."""
+
+    class Meta(object):
+        model = User
+        fields = (
+            'first_name',
+            'last_name',
+            'is_institutional_admin',
+            'institute',
+        )
+
+
+class RegularUserModifySerializer(serializers.ModelSerializer):
+    """Serializer for user modify by regular user."""
+
+    class Meta(object):
+        model = User
+        fields = (
+            'first_name',
+            'last_name',
+        )
