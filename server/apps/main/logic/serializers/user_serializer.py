@@ -74,7 +74,9 @@ class AdminUserModifySerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
             'email',
+            'is_verified',
             'is_admin',
+            'is_active',
             'is_institutional_admin',
             'institute',
         )
@@ -88,8 +90,10 @@ class InstitutionalAdminUserModifySerializer(serializers.ModelSerializer):
         fields = (
             'first_name',
             'last_name',
+            'email',
+            'is_verified',
+            'is_active',
             'is_institutional_admin',
-            'institute',
         )
 
 
