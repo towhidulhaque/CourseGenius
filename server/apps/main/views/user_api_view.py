@@ -1,12 +1,16 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 
-from server.apps.main.logic.serializers.user_serializer import UserSerializer, AdminUserModifySerializer, \
-    InstitutionalAdminUserModifySerializer, RegularUserModifySerializer
+from server.apps.main.logic.serializers.user_serializer import (
+    AdminUserModifySerializer,
+    InstitutionalAdminUserModifySerializer,
+    RegularUserModifySerializer,
+    UserSerializer,
+)
 from server.apps.main.models import User
 
 

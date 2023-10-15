@@ -5,12 +5,14 @@ from rest_framework import status
 from rest_framework.generics import (
     CreateAPIView,
     RetrieveAPIView,
+    UpdateAPIView,
     get_object_or_404,
 )
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from server.apps.main.logic.serializers.user_serializer import (
+    ChangePasswordSerializer,
     RegisterSerializer,
 )
 from server.apps.main.logic.services.register_service import RegisterService
@@ -79,3 +81,23 @@ class UserEmailVerificationAPI(RetrieveAPIView):
             {'message': 'Invalid/Expired verification token.'},
             status=status.HTTP_400_BAD_REQUEST,
         )
+
+
+class ChangePasswordAPIView(UpdateAPIView):
+    """API view for changing user password."""
+
+    serializer_class = ChangePasswordSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_object(self):
+        """Returning self user."""
+        return self.request.user
+
+    def update(self, request, *args, **kwargs):
+        """Update user's password."""
+        serializer = self.get_serializer(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = self.get_object()
+        user.set_password(serializer.validated_data.get('new_password'))
+        user.save()
+        return Response({'message': 'Password changed successfully.'}, status=status.HTTP_200_OK)
