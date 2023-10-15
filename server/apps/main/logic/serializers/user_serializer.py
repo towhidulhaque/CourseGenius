@@ -129,8 +129,8 @@ class ChangePasswordSerializer(serializers.Serializer):
             raise serializers.ValidationError('Incorrect old password.')
         return cpwd
 
-    def validate(self, serialized_data):
+    def validate(self, attrs):
         """Validate password change request."""
-        if serialized_data['new_password'] != serialized_data['new_password2']:
+        if attrs['new_password'] != attrs['new_password2']:
             raise serializers.ValidationError({'new_password': "New password fields didn't match."})
-        return serialized_data
+        return attrs
