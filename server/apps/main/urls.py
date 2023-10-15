@@ -5,10 +5,11 @@ from typing import List
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+from server.apps.main.views.change_password_api_view import ChangePasswordAPIView
 from server.apps.main.views.institute_api_view import InstituteListCreateView
 from server.apps.main.views.login_api_view import UserLoginAPI
 from server.apps.main.views.password_reset_api_view import PasswordResetRequestAPIView, PasswordResetConfirmAPIView
-from server.apps.main.views.register_api_view import RegisterAPIView, UserEmailVerificationAPI, ChangePasswordAPIView
+from server.apps.main.views.register_api_view import RegisterAPIView, UserEmailVerificationAPI
 from server.apps.main.views.user_api_view import UserListView, UserModifyView
 
 app_name = 'main'
