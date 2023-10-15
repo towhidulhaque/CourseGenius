@@ -25,4 +25,30 @@
 '
     template_key: register_email
     is_html: true
+    created_at: 2023-07-13T17:41:28+00:0
+- model: main.EmailTemplate
+  pk: 2
+  fields:
+    subject: 'Confirm Password Reset'
+    from_email: 'coursegenius <no-reply@wiseturn.com>'
+    mail_body: '<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset</title>
+</head>
+<body>
+    <p>Hello {{ name }},</p>
+    <p>We received a request to reset your password for your CourseGenios account. Please click the following link to reset your password:</p>
+    <p><a href="{{ reset_link }}">Reset Password</a></p>
+    <p>If you did not request a password reset, you can safely ignore this email.</p>
+    <p>Best regards,<br>
+    Your CourseGenios Team</p>
+</body>
+</html>
+'
+    template_key: password_reset_email
+    is_html: true
     created_at: 2023-07-13T17:41:28+00:00
